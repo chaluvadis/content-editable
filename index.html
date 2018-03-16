@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 40px auto;
+        }
+        .action .bold {
+            font-weight: bold;
+        }
+
+        .action .italic {
+            font-style: italic;
+        }
+
+        .editbox {
+            height: 200px;
+            width: 400px;
+            border: solid 1px #e7e7e7;
+            outline: 0;
+        }
+
+        .controls {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="controls">
+            <button onclick="exec('bold')" class="action bold">B</button>
+            <button onclick="exec('italic')" class="action italic">I</button>
+            <button onclick="copyAll()">Copy All</button>
+        </div>
+        <div class="editbox" contenteditable="true">
+            <ol>
+                <li>This list 1st child</li>
+                <li>I am the second one</li>
+                <li>I am the last one</li>
+            </ol>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function exec(cmd) {
+            document.execCommand(cmd, false, false);
+        }
+
+        function copyAll() {
+            var editBox = document.getElementsByClassName('editbox')[0];
+            var editBoxRange = document.createRange();
+            editBoxRange.selectNodeContents(editBox);
+
+            var selection = document.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(editBoxRange);
+            document.execCommand('copy');
+        }
+    </script>
+</body>
+
+</html>
